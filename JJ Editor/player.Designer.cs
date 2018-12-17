@@ -368,14 +368,14 @@
             // saveToolStripMenuItem1
             // 
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem1.Text = "Close";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
             // 
             // saveToolStripMenuItem2
             // 
             this.saveToolStripMenuItem2.Name = "saveToolStripMenuItem2";
-            this.saveToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem2.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem2.Text = "Save";
             this.saveToolStripMenuItem2.Click += new System.EventHandler(this.saveToolStripMenuItem2_Click);
             // 
@@ -386,7 +386,7 @@
             this.ClientSize = new System.Drawing.Size(499, 269);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
-            this.MaximumSize = new System.Drawing.Size(515, 750);
+            this.MaximumSize = new System.Drawing.Size(515, 600);
             this.MinimumSize = new System.Drawing.Size(515, 308);
             this.Name = "Player";
             this.ShowIcon = false;

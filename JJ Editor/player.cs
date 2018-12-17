@@ -78,6 +78,8 @@ namespace JJ_Editor
         bool autoSave = false;
         bool orderOption = false;
 
+        string hexViewText;
+
         // For listview datasource
         //List<string> itemNames = new List<string>();
 
@@ -189,9 +191,8 @@ namespace JJ_Editor
                 {
                     br.BaseStream.Position = i;
                     playerName += br.ReadChar().ToString();
-
-                    nameText.Text = playerName;
                 }
+                nameText.Text = playerName;
                 nameText.MaxLength = 15;
 
                 // Read health
@@ -266,6 +267,7 @@ namespace JJ_Editor
             {
                 orderOption = false;
             }
+
         }
 
         private void timer_Tick(object sender, EventArgs e)

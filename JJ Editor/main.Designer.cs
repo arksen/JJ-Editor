@@ -36,11 +36,12 @@
             this.conversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.orderOption = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.orderOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.hexEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -77,7 +78,8 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.conversionToolStripMenuItem});
+            this.conversionToolStripMenuItem,
+            this.hexEditorToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -85,7 +87,7 @@
             // conversionToolStripMenuItem
             // 
             this.conversionToolStripMenuItem.Name = "conversionToolStripMenuItem";
-            this.conversionToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.conversionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.conversionToolStripMenuItem.Text = "Conversion";
             this.conversionToolStripMenuItem.Click += new System.EventHandler(this.conversionToolStripMenuItem_Click);
             // 
@@ -104,8 +106,17 @@
             // 
             this.autoSave.CheckOnClick = true;
             this.autoSave.Name = "autoSave";
-            this.autoSave.Size = new System.Drawing.Size(180, 22);
+            this.autoSave.Size = new System.Drawing.Size(173, 22);
             this.autoSave.Text = "Auto Save";
+            // 
+            // orderOption
+            // 
+            this.orderOption.Checked = true;
+            this.orderOption.CheckOnClick = true;
+            this.orderOption.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.orderOption.Name = "orderOption";
+            this.orderOption.Size = new System.Drawing.Size(173, 22);
+            this.orderOption.Text = "Alphabetical Order";
             // 
             // aboutToolStripMenuItem
             // 
@@ -130,14 +141,12 @@
             this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Ready";
             // 
-            // orderOption
+            // hexEditorToolStripMenuItem
             // 
-            this.orderOption.Checked = true;
-            this.orderOption.CheckOnClick = true;
-            this.orderOption.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.orderOption.Name = "orderOption";
-            this.orderOption.Size = new System.Drawing.Size(180, 22);
-            this.orderOption.Text = "Alphabetical Order";
+            this.hexEditorToolStripMenuItem.Name = "hexEditorToolStripMenuItem";
+            this.hexEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hexEditorToolStripMenuItem.Text = "Hex Editor";
+            this.hexEditorToolStripMenuItem.Click += new System.EventHandler(this.hexEditorToolStripMenuItem_Click);
             // 
             // main
             // 
@@ -175,6 +184,7 @@
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autoSave;
         private System.Windows.Forms.ToolStripMenuItem orderOption;
+        private System.Windows.Forms.ToolStripMenuItem hexEditorToolStripMenuItem;
     }
 }
 

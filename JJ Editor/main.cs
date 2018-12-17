@@ -36,14 +36,15 @@ namespace JJ_Editor
 
         }
 
+        string dir = @"C:\Users\Willem\AppData\Roaming\Junk Jack\players";
+        string fileName = "";
+        bool fileSelected = true;
+        bool autoSaveCheck = false;
+        bool orderCheck = true;
+
         Player player;
         private void playerFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dir = @"C:\Users\Willem\AppData\Roaming\Junk Jack\players";
-            string fileName = "";
-            bool fileSelected = true;
-            bool autoSaveCheck = false;
-            bool orderCheck = true;
 
             if (autoSave.CheckState == CheckState.Checked)
             {
@@ -160,6 +161,74 @@ namespace JJ_Editor
             conversion conv = new conversion();
             conv.MdiParent = this;
             conv.Show();
+        }
+
+        private void hexEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = ".dat file only|*.dat";
+
+            void chooseFile()
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    fileName = Path.GetFileName(ofd.FileName);
+                }
+                else
+                {
+                    fileSelected = false;
+                }
+            }
+
+            hex Hex;
+            void createWindow()
+            {
+                if (fileSelected == true)
+                {
+                    Hex = new hex(dir, fileName);
+                    Hex.MdiParent = this;
+                    Hex.Text = fileName;
+                    Hex.Show();
+                    statusLabel.Text = fileName + " loaded";
+                }
+            }
+
+            // Check if save directory exists
+            if (Directory.Exists(dir))
+            {
+                string[] files = Directory.GetFiles(dir, "*.dat");
+
+                if (files.Length > 1)
+                {
+                    ofd.InitialDirectory = dir;
+                    chooseFile();
+                    fileName = Path.GetFileName(ofd.FileName);
+                    createWindow();
+                    return;
+                }
+                else if (files.Length < 1)
+                {
+                    chooseFile();
+                    fileName = Path.GetFileName(ofd.FileName);
+                    createWindow();
+                    return;
+                }
+                else
+                {
+                    fileName = Path.GetFileName(files[0]);
+                    createWindow();
+                    return;
+                }
+
+            }
+            else
+            {
+                //MessageBox.Show("Directory does not exist.");
+                chooseFile();
+                fileName = Path.GetFileName(ofd.FileName);
+                dir = Path.GetDirectoryName(ofd.FileName);
+                createWindow();
+            }
         }
     }
 }
