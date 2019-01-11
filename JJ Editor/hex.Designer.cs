@@ -40,7 +40,7 @@
             this.saveButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(604, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(607, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -57,9 +57,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 551);
+            this.ClientSize = new System.Drawing.Size(607, 551);
             this.Controls.Add(this.toolStrip1);
             this.Name = "hex";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "hex";
             this.Load += new System.EventHandler(this.hex_Load);

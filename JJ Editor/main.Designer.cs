@@ -34,6 +34,7 @@
             this.playerFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.conversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hexEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoSave = new System.Windows.Forms.ToolStripMenuItem();
             this.orderOption = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,7 +42,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.hexEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +90,13 @@
             this.conversionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.conversionToolStripMenuItem.Text = "Conversion";
             this.conversionToolStripMenuItem.Click += new System.EventHandler(this.conversionToolStripMenuItem_Click);
+            // 
+            // hexEditorToolStripMenuItem
+            // 
+            this.hexEditorToolStripMenuItem.Name = "hexEditorToolStripMenuItem";
+            this.hexEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hexEditorToolStripMenuItem.Text = "Raw Hex Viewer";
+            this.hexEditorToolStripMenuItem.Click += new System.EventHandler(this.hexEditorToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -140,13 +147,6 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Ready";
-            // 
-            // hexEditorToolStripMenuItem
-            // 
-            this.hexEditorToolStripMenuItem.Name = "hexEditorToolStripMenuItem";
-            this.hexEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.hexEditorToolStripMenuItem.Text = "Hex Editor";
-            this.hexEditorToolStripMenuItem.Click += new System.EventHandler(this.hexEditorToolStripMenuItem_Click);
             // 
             // main
             // 

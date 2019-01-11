@@ -143,7 +143,7 @@ namespace JJ_Editor
                 ab.MdiParent = this;
                 ab.FormClosed += Ab_FormClosed;
                 ab.Show();
-                statusLabel.Text = "Version 0.1 Beta | Created by Stick";
+                statusLabel.Text = "Version 0.2";
             } else
             {
                 ab.Activate();

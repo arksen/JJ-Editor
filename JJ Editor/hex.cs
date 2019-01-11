@@ -13,14 +13,19 @@ namespace JJ_Editor
 {
     public partial class hex : Form
     {
+
+        ByteViewer bv = new ByteViewer();
+        public string directory;
+        public string filename;
         public hex(string dir, string fileName)
         {
             InitializeComponent();
 
-            ByteViewer bv = new ByteViewer();
+            directory = dir;
+            filename = fileName;
             bv.Dock = DockStyle.Fill;
             bv.SetBytes(new byte[] { });
-            bv.SetFile(dir + "/" + fileName);
+            bv.SetFile(directory + "/" + filename);
             bv.BorderStyle = BorderStyle.None;
             Controls.Add(bv);
         }
@@ -32,7 +37,7 @@ namespace JJ_Editor
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-
+            bv.SaveToFile(directory + "/" + filename);
         }
     }
 }
