@@ -143,7 +143,7 @@ namespace JJ_Editor
                 ab.MdiParent = this;
                 ab.FormClosed += Ab_FormClosed;
                 ab.Show();
-                statusLabel.Text = "Version 0.2";
+                statusLabel.Text = "Version 0.3";
             } else
             {
                 ab.Activate();

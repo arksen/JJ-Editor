@@ -95,7 +95,7 @@
             // 
             this.hexEditorToolStripMenuItem.Name = "hexEditorToolStripMenuItem";
             this.hexEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.hexEditorToolStripMenuItem.Text = "Raw Hex Viewer";
+            this.hexEditorToolStripMenuItem.Text = "Raw Hex Editor";
             this.hexEditorToolStripMenuItem.Click += new System.EventHandler(this.hexEditorToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
@@ -113,7 +113,7 @@
             // 
             this.autoSave.CheckOnClick = true;
             this.autoSave.Name = "autoSave";
-            this.autoSave.Size = new System.Drawing.Size(173, 22);
+            this.autoSave.Size = new System.Drawing.Size(180, 22);
             this.autoSave.Text = "Auto Save";
             // 
             // orderOption
@@ -122,7 +122,7 @@
             this.orderOption.CheckOnClick = true;
             this.orderOption.CheckState = System.Windows.Forms.CheckState.Checked;
             this.orderOption.Name = "orderOption";
-            this.orderOption.Size = new System.Drawing.Size(173, 22);
+            this.orderOption.Size = new System.Drawing.Size(180, 22);
             this.orderOption.Text = "Alphabetical Order";
             // 
             // aboutToolStripMenuItem
