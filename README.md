@@ -4,4 +4,4 @@ JJ Editor allows users to modify their player files in Junk Jack. This tool is o
 
 Download for Windows [HERE](https://github.com/arksen/JJ-Editor/releases)
 
-![capture](https://i.imgur.com/wxNYciE.png?1)
+![capture](https://i.imgur.com/S0W3Kv3.png)
