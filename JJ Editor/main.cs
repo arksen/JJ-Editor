@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
+using System.Net;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace JJ_Editor
 {
@@ -24,6 +27,35 @@ namespace JJ_Editor
         private void Form1_Load(object sender, EventArgs e)
         {
             statusLabel.Text = "Ready!";
+
+            WebClient client = new WebClient();
+            WebRequest versionUrl = WebRequest.Create(new Uri("https://raw.githubusercontent.com/arksen/JJ-Editor/master/version.txt"));
+            WebResponse ws = versionUrl.GetResponse();
+            StreamReader sr = new StreamReader(ws.GetResponseStream());
+            string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string latestVersion = sr.ReadLine();
+
+            // Download update when program is not up to date
+            if (currentVersion != latestVersion)
+            {
+                if (MessageBox.Show("There is an update available " + latestVersion + "\nWould you like to download it?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        client.DownloadFile("https://github.com/arksen/JJ-Editor/releases/latest/download/JJ.Editor.rar", Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/JJ.Editor.rar");
+                        MessageBox.Show("Update successfully downloaded!", "Update", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Failed to download update!", "Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Environment.Exit(0);
+                    }
+                    client.Dispose();
+
+                    Process.Start(Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/JJ.Editor.rar");
+                    Environment.Exit(0);
+                }
+            }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,7 +68,7 @@ namespace JJ_Editor
 
         }
 
-        string dir = @"C:\Users\Willem\AppData\Roaming\Junk Jack\players";
+        string dir = Environment.GetEnvironmentVariable("USERPROFILE")+@"\AppData\Roaming\Junk Jack\players";
         string fileName = "";
         bool fileSelected = true;
         bool autoSaveCheck = false;
@@ -80,11 +112,22 @@ namespace JJ_Editor
             {
                 if (fileSelected == true)
                 {
-                    player = new Player(dir, fileName, autoSaveCheck, orderCheck);
-                    player.MdiParent = this;
-                    player.Text = fileName;
-                    player.Show();
-                    statusLabel.Text = fileName + " loaded";
+                    try
+                    {
+                        using (FileStream fs = new FileStream(dir + "/" + fileName, FileMode.Open, FileAccess.Read))
+                        {
+                            player = new Player(dir, fileName, autoSaveCheck, orderCheck);
+                            player.MdiParent = this;
+                            player.Text = fileName;
+                            player.Show();
+                            statusLabel.Text = fileName + " loaded"; 
+                        }
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("Cannot open file because it is already being used", "JJ Editor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
             }
 
@@ -134,16 +177,16 @@ namespace JJ_Editor
             player = null;
         }
 
-        about ab;
+        AboutBox1 ab;
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ab == null)
             {
-                ab = new about();
+                ab = new AboutBox1();
                 ab.MdiParent = this;
                 ab.FormClosed += Ab_FormClosed;
                 ab.Show();
-                statusLabel.Text = "Version 0.3";
+                statusLabel.Text = "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             } else
             {
                 ab.Activate();

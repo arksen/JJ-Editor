@@ -267,7 +267,6 @@ namespace JJ_Editor
             {
                 orderOption = false;
             }
-
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -562,6 +561,8 @@ namespace JJ_Editor
             itemBox.Enabled = true;
             numericUpDown1.Enabled = true;
             checkBox1.Enabled = true;
+            itemList.Enabled = true;
+            saveButton.Enabled = true;
 
             numericUpDown1.Value = Convert.ToInt32(treeView1.SelectedNode.Tag);
 
@@ -588,6 +589,8 @@ namespace JJ_Editor
                 itemBox.Enabled = false;
                 numericUpDown1.Enabled = false;
                 checkBox1.Enabled = false;
+                itemList.Enabled = false;
+                saveButton.Enabled = false;
             }
         }
 
@@ -606,6 +609,34 @@ namespace JJ_Editor
             var s = m.statusLabelPlayer;
             s.Text = Path.GetFileName(playerFile) + " closed";
             this.Close();
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            writeToPlayer();
+        }
+
+        private void playerFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.Filter = "Player files (*.dat)|*.dat";
+            sfd.RestoreDirectory = true;
+            sfd.Title = "Save player file";
+            sfd.InitialDirectory = @"C:\";
+            sfd.DefaultExt = "dat";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                File.Copy(playerFile, sfd.FileName);
+            }
+        }
+
+        private void Player_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            main m = (main)this.MdiParent;
+            var s = m.statusLabelPlayer;
+            s.Text = Path.GetFileName(playerFile) + " closed";
         }
     }
 }

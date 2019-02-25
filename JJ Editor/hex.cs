@@ -16,7 +16,6 @@ namespace JJ_Editor
 {
     public partial class hex : Form
     {
-
         public string directory;
         public string filename;
         DynamicFileByteProvider df;
@@ -32,7 +31,7 @@ namespace JJ_Editor
             //bv.BorderStyle = BorderStyle.None;
             //Controls.Add(bv);
 
-            df = new DynamicFileByteProvider(directory + "/" + filename);
+            df = new DynamicFileByteProvider(directory + "/" + fileName);
             hexBox.ByteProvider = df;
 
             hexBox.InsertActive = true;
@@ -59,6 +58,44 @@ namespace JJ_Editor
         {
             df.Dispose();
             this.Close();
+        }
+
+        private void stringViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(stringViewToolStripMenuItem.CheckState == CheckState.Checked)
+            {
+                hexBox.StringViewVisible = true;
+            }
+            else if (stringViewToolStripMenuItem.CheckState == CheckState.Unchecked)
+            {
+                hexBox.StringViewVisible = false;
+            }
+        }
+
+        private void hexBox_SelectionStartChanged(object sender, EventArgs e)
+        {
+            offsetText.Text = string.Format("Line: {0} Column: {1}", hexBox.CurrentLine, hexBox.CurrentPositionInLine);
+        }
+
+        private void bytesText_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void offsetTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if(offsetTextBox.Text == "")
+            {
+                hexBox.SelectionStart = 0;
+            }
+            else if (int.Parse(offsetTextBox.Text) > hexBox.ByteProvider.Length)
+            {
+                hexBox.SelectionStart = 0;
+            }
+            else
+            {
+                hexBox.SelectionStart = int.Parse(offsetTextBox.Text);
+            }
         }
     }
 }
