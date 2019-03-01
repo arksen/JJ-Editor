@@ -172,10 +172,14 @@ namespace JJ_Editor
             }
         }
 
+        BackgroundWorker bw;
+
         private string playerFile;
         public Player(string dir, string file, bool autoSaveCheck, bool orderCheck)
         {
             InitializeComponent();
+
+            System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false; // This is a bad thing to do figure out another way
 
             // Add nodes
             treeView1.Nodes.Add("Hot Slots");
@@ -184,6 +188,37 @@ namespace JJ_Editor
             //treeView1.Nodes.Add("Potions");
 
             playerFile = dir + "/" + file;
+
+            bw = new BackgroundWorker();
+            bw.DoWork += (obj, ea) => formLoad(1);
+            bw.RunWorkerAsync();
+
+            if (autoSaveCheck == true)
+            {
+                timer.Enabled = true;
+                timer.Tick += new EventHandler(timer_Tick);
+                timer.Interval = 20000; // 20 seconds
+                timer.Start();
+            }
+            else if (autoSaveCheck == false)
+            {
+                timer.Enabled = false;
+            }
+            if (orderCheck == true)
+            {
+                orderOption = true;
+            }
+            else if (orderCheck = false)
+            {
+                orderOption = false;
+            }
+        }
+
+        
+        // All the code executed when player form loads but on separate thread
+        private async void formLoad(int times)
+        {
+            
             using (var br = new BinaryReader(File.OpenRead(playerFile)))
             {
                 // Read player name
@@ -213,7 +248,7 @@ namespace JJ_Editor
                 // Legs
                 readOffset(legs, 0x3A5, legsName, legsText, null, null, br);
                 // Feet
-                readOffset(feet, 0x3B1, feetName, feetText, null, null, br);  
+                readOffset(feet, 0x3B1, feetName, feetText, null, null, br);
 
                 // Add items to treeview
                 var treeHots = treeView1.Nodes[0];
@@ -246,26 +281,6 @@ namespace JJ_Editor
                     treeView1.Nodes[1].Nodes[i].Tag = tags[i];
                 }
                 tags.Clear();
-            }
-
-            if (autoSaveCheck == true)
-            {
-                timer.Enabled = true;
-                timer.Tick += new EventHandler(timer_Tick);
-                timer.Interval = 20000; // 20 seconds
-                timer.Start();
-            }
-            else if (autoSaveCheck == false)
-            {
-                timer.Enabled = false;
-            }
-            if (orderCheck == true)
-            {
-                orderOption = true;
-            }
-            else if (orderCheck = false)
-            {
-                orderOption = false;
             }
         }
 

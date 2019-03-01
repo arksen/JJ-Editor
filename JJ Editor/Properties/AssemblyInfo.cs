@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("JJ Editor")]
-[assembly: AssemblyDescription("Allows players to modify their inventory along with other attributes such as name, health, etc. Created by Arksen (aka Stick).")]
+[assembly: AssemblyDescription("Allows players to modify their inventory along with other attributes such as name, health, etc. Created by Arksen (aka Stick). Special thanks to DaFatCookie, LordModz and other community members for extensive testing.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Arksen aka Stick")]
 [assembly: AssemblyProduct("JJ Editor")]
 [assembly: AssemblyCopyright("Copyright © Arksen 2019")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.3.0.0")]
-[assembly: AssemblyFileVersion("0.3.0.0")]
+[assembly: AssemblyVersion("0.5.0.0")]
+[assembly: AssemblyFileVersion("0.5.0.0")]

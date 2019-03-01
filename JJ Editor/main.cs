@@ -28,6 +28,8 @@ namespace JJ_Editor
         {
             statusLabel.Text = "Ready!";
 
+            //d BackgroundWorker bw = new BackgroundWorker();
+
             WebClient client = new WebClient();
             WebRequest versionUrl = WebRequest.Create(new Uri("https://raw.githubusercontent.com/arksen/JJ-Editor/master/version.txt"));
             WebResponse ws = versionUrl.GetResponse();
@@ -112,6 +114,7 @@ namespace JJ_Editor
             {
                 if (fileSelected == true)
                 {
+                    // Check if file is already in use
                     try
                     {
                         using (FileStream fs = new FileStream(dir + "/" + fileName, FileMode.Open, FileAccess.Read))
@@ -125,9 +128,15 @@ namespace JJ_Editor
                     }
                     catch (IOException)
                     {
-                        MessageBox.Show("Cannot open file because it is already being used", "JJ Editor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("File is currently being used by another process", "JJ Editor", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+
+                    /*player = new Player(dir, fileName, autoSaveCheck, orderCheck);
+                    player.MdiParent = this;
+                    player.Text = fileName;
+                    player.Show();
+                    statusLabel.Text = fileName + " loaded";*/
                 }
             }
 
@@ -178,7 +187,7 @@ namespace JJ_Editor
         }
 
         AboutBox1 ab;
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void aboutJJEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ab == null)
             {
@@ -272,6 +281,11 @@ namespace JJ_Editor
                 dir = Path.GetDirectoryName(ofd.FileName);
                 createWindow();
             }
+        }
+
+        private void documentationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, "JJ_Editor.chm");
         }
     }
 }

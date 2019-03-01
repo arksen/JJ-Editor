@@ -38,10 +38,12 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoSave = new System.Windows.Forms.ToolStripMenuItem();
             this.orderOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutJJEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +54,7 @@
             this.openToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.optionsToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1115, 24);
@@ -87,14 +89,14 @@
             // conversionToolStripMenuItem
             // 
             this.conversionToolStripMenuItem.Name = "conversionToolStripMenuItem";
-            this.conversionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.conversionToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.conversionToolStripMenuItem.Text = "Conversion";
             this.conversionToolStripMenuItem.Click += new System.EventHandler(this.conversionToolStripMenuItem_Click);
             // 
             // hexEditorToolStripMenuItem
             // 
             this.hexEditorToolStripMenuItem.Name = "hexEditorToolStripMenuItem";
-            this.hexEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hexEditorToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.hexEditorToolStripMenuItem.Text = "Raw Hex Editor";
             this.hexEditorToolStripMenuItem.Click += new System.EventHandler(this.hexEditorToolStripMenuItem_Click);
             // 
@@ -113,7 +115,7 @@
             // 
             this.autoSave.CheckOnClick = true;
             this.autoSave.Name = "autoSave";
-            this.autoSave.Size = new System.Drawing.Size(180, 22);
+            this.autoSave.Size = new System.Drawing.Size(173, 22);
             this.autoSave.Text = "Auto Save";
             // 
             // orderOption
@@ -122,15 +124,8 @@
             this.orderOption.CheckOnClick = true;
             this.orderOption.CheckState = System.Windows.Forms.CheckState.Checked;
             this.orderOption.Name = "orderOption";
-            this.orderOption.Size = new System.Drawing.Size(180, 22);
+            this.orderOption.Size = new System.Drawing.Size(173, 22);
             this.orderOption.Text = "Alphabetical Order";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -147,6 +142,29 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Ready";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutJJEditorToolStripMenuItem,
+            this.documentationToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutJJEditorToolStripMenuItem
+            // 
+            this.aboutJJEditorToolStripMenuItem.Name = "aboutJJEditorToolStripMenuItem";
+            this.aboutJJEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutJJEditorToolStripMenuItem.Text = "About JJ Editor";
+            this.aboutJJEditorToolStripMenuItem.Click += new System.EventHandler(this.aboutJJEditorToolStripMenuItem_Click);
+            // 
+            // documentationToolStripMenuItem
+            // 
+            this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
+            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.documentationToolStripMenuItem.Text = "Documentation";
+            this.documentationToolStripMenuItem.Click += new System.EventHandler(this.documentationToolStripMenuItem_Click);
             // 
             // main
             // 
@@ -177,7 +195,6 @@
         private System.Windows.Forms.ToolStripMenuItem playerFileToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem conversionToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
@@ -185,6 +202,9 @@
         private System.Windows.Forms.ToolStripMenuItem autoSave;
         private System.Windows.Forms.ToolStripMenuItem orderOption;
         private System.Windows.Forms.ToolStripMenuItem hexEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutJJEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem documentationToolStripMenuItem;
     }
 }
 

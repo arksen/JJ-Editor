@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JJ Editor", "JJ Editor\JJ Editor.csproj", "{BCEA0D50-6246-491F-990E-5B7BFD39910B}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupProgram", "SetupProgram\SetupProgram.vdproj", "{E60A8656-C125-4252-AC3A-800BE94D0DDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{BCEA0D50-6246-491F-990E-5B7BFD39910B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCEA0D50-6246-491F-990E-5B7BFD39910B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCEA0D50-6246-491F-990E-5B7BFD39910B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E60A8656-C125-4252-AC3A-800BE94D0DDC}.Debug|Any CPU.ActiveCfg = Debug
+		{E60A8656-C125-4252-AC3A-800BE94D0DDC}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
