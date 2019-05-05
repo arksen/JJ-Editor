@@ -40,9 +40,9 @@
             this.decimalLabel.AutoSize = true;
             this.decimalLabel.Location = new System.Drawing.Point(13, 13);
             this.decimalLabel.Name = "decimalLabel";
-            this.decimalLabel.Size = new System.Drawing.Size(48, 13);
+            this.decimalLabel.Size = new System.Drawing.Size(44, 13);
             this.decimalLabel.TabIndex = 0;
-            this.decimalLabel.Text = "Decimal:";
+            this.decimalLabel.Text = "Item ID:";
             // 
             // decText
             // 
@@ -94,7 +94,7 @@
             this.MinimumSize = new System.Drawing.Size(319, 142);
             this.Name = "conversion";
             this.ShowIcon = false;
-            this.Text = "Conversion";
+            this.Text = "Converter";
             this.ResumeLayout(false);
             this.PerformLayout();
 

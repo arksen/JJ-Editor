@@ -11,14 +11,36 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Threading;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace JJ_Editor
 {
     public partial class Player : Form
     {
         string playerName = null;
-        string health = null;
-        int healthVal;
+        int health;
+        byte[] healthBytes = new byte[4];
+        byte[] male = { 0x0, 0x2, 0x4, 0x6, 0x8 };
+        byte[] female = { 0x1, 0x3, 0x5, 0x7, 0x9 };
+        string[] hairStyle = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14" };
+        string[] hairColor = { "Grey", "Black", "Brown", "Dark Brown", "Light Brown", "Blond", "Light Blond", "Light", "Orange", "Velvet", "Lavender", "Blue", "Turquoise", "Green", "Yellow", "White" };
+        string[] skinTone = { "Very Light", "Light", "Tan", "Dark", "Very Dark" };
+        byte colorValue;
+        byte originalGender;
+        byte genderValue;
+        byte styleValue;
+        byte skinID;
+
+        byte[] bytes;
+
+        string pattern = "";
+        string[] keyWords = { "FF" };
+
+        Dictionary<string, int?> hcolor = new Dictionary<string, int?>();
+        Dictionary<string, int?> hstyle = new Dictionary<string, int?>();
+        Dictionary<string, int?> stone = new Dictionary<string, int?>();
+        Dictionary<string, byte[]> dgender = new Dictionary<string, byte[]>();
 
         // String values
         string helmName = null;
@@ -94,8 +116,7 @@ namespace JJ_Editor
             public string name { get; set; }
         }
 
-        // Reads offsets and items
-        // Read offset
+        // Reads offsets for items
         void readOffset(int start, int end, string offset, TextBox textbox = null, TreeNode treeView = null, NumericUpDown itemAmount = null, BinaryReader br = null)
         {
             char[] characters = null;
@@ -172,14 +193,13 @@ namespace JJ_Editor
             }
         }
 
-        BackgroundWorker bw;
-
         private string playerFile;
         public Player(string dir, string file, bool autoSaveCheck, bool orderCheck)
         {
             InitializeComponent();
-
-            System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false; // This is a bad thing to do figure out another way
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
 
             // Add nodes
             treeView1.Nodes.Add("Hot Slots");
@@ -188,10 +208,7 @@ namespace JJ_Editor
             //treeView1.Nodes.Add("Potions");
 
             playerFile = dir + "/" + file;
-
-            bw = new BackgroundWorker();
-            bw.DoWork += (obj, ea) => formLoad(1);
-            bw.RunWorkerAsync();
+            bytes = File.ReadAllBytes(playerFile);
 
             if (autoSaveCheck == true)
             {
@@ -212,13 +229,12 @@ namespace JJ_Editor
             {
                 orderOption = false;
             }
-        }
 
-        
-        // All the code executed when player form loads but on separate thread
-        private async void formLoad(int times)
+            readPlayerFile();
+        }      
+
+        private void readPlayerFile()
         {
-            
             using (var br = new BinaryReader(File.OpenRead(playerFile)))
             {
                 // Read player name
@@ -231,16 +247,157 @@ namespace JJ_Editor
                 nameText.MaxLength = 15;
 
                 // Read health
-                for (int i = 0x53A; i <= 0x53B; i++)
+                int a = 0;
+                for (int i = 0x538; i <= 0x53B; i++)
                 {
                     br.BaseStream.Position = i;
-                    health += br.ReadByte().ToString("X2");
+                    //health += br.ReadByte().ToString("X2");
+                    //health += br.ReadUInt16().ToString();
+
+                    healthBytes[a] = br.ReadByte();
+                    a++;
                 }
-                if (health == "FFFF")
+                float hFloat = BitConverter.ToSingle(healthBytes, 0);
+                health = (int)hFloat;
+                if (health > 0xFFFF || health < 0)
+                {
+                    health = 0xFFFF;
+                }
+                healthBox.Value = health;
+
+                if (healthBox.Value == 0xFFFF)
                 {
                     NaN.Checked = true;
                 }
 
+                // Read characteristics
+                // Hair color
+                int b = 0x1;
+                foreach(string color in hairColor)
+                {
+                    hcolor.Add(color, b);
+                    b++;
+                }
+                colorBox.DataSource = new BindingSource(hcolor, null);
+                colorBox.DisplayMember = "Key";
+                colorBox.ValueMember = "Value";
+
+                br.BaseStream.Position = 0x74;
+                byte cValue = br.ReadByte();
+                foreach (var value in hcolor)
+                {
+                    if ((Convert.ToByte(value.Value) << 4) == cValue)
+                    {
+                        colorBox.SelectedValue = value.Value;
+                        colorBox.SelectedText = value.Key;
+                    }
+                }
+
+                // Skin tone
+                int d = 0x1;
+                foreach (string tone in skinTone)
+                {
+                    stone.Add(tone, d);
+                    d++;
+                }
+                toneBox.DataSource = new BindingSource(stone, null);
+                toneBox.DisplayMember = "Key";
+                toneBox.ValueMember = "Value";
+
+                br.BaseStream.Position = 0x75;
+
+                // Gender
+                dgender.Add("Male", male);
+                dgender.Add("Female", female);
+                
+                genderBox.ValueMember = "Value";
+                genderBox.DisplayMember = "Key";
+                genderBox.DataSource = new BindingSource(dgender, null);
+
+                br.BaseStream.Position = 0x75;
+                byte gValue = br.ReadByte();
+
+                foreach (var value in dgender)
+                {
+                    foreach(byte v in value.Value)
+                    {                      
+                        if ((Convert.ToByte(v)) == (gValue >> 4))
+                        {
+                            genderBox.SelectedValue = value.Value;
+                            genderBox.SelectedText = value.Key;
+                            originalGender = v;
+                        }
+
+                        // Skin tone
+                        switch(gValue >> 4)
+                        {
+                            case 0: // Male
+                                toneBox.SelectedValue = 1;
+                                skinID = 0x0;
+                                break;
+                            case 1: // Female
+                                toneBox.SelectedValue = 1;
+                                skinID = 0x1;
+                                break;
+                            case 2: // Male
+                                toneBox.SelectedValue = 2;
+                                skinID = 0x2;
+                                break;
+                            case 3: // Female
+                                toneBox.SelectedValue = 2;
+                                skinID = 0x3;
+                                break;
+                            case 4: // Male
+                                toneBox.SelectedValue = 3;
+                                skinID = 0x4;
+                                break;
+                            case 5: // Female
+                                toneBox.SelectedValue = 3;
+                                skinID = 0x5;
+                                break;
+                            case 6: // Male
+                                toneBox.SelectedValue = 4;
+                                skinID = 0x6;
+                                break;
+                            case 7: // Female
+                                toneBox.SelectedValue = 4;
+                                skinID = 0x7;
+                                break;
+                            case 8: // Male
+                                toneBox.SelectedValue = 5;
+                                skinID = 0x8;
+                                break;
+                            case 9: // Female
+                                toneBox.SelectedValue = 5;
+                                skinID = 0x9;
+                                break;
+                        }
+                    }
+                }
+
+                // Hair style
+                int c = 0x1;
+                foreach (string style in hairStyle)
+                {
+                    hstyle.Add(style, c);
+                    c++;
+                }
+                styleBox.DataSource = new BindingSource(hstyle, null);
+                styleBox.DisplayMember = "Key";
+                styleBox.ValueMember = "Value";
+
+                br.BaseStream.Position = 0x75;
+                byte sValue = br.ReadByte();
+                foreach (var value in hstyle)
+                {
+                    //MessageBox.Show((Convert.ToByte(value.Value) & 0x0F).ToString("X2") + " and the value you want: " + (sValue & 0x0F).ToString("X2"));
+                    if ((Convert.ToByte(value.Value) & 0x0F) == (sValue & 0x0F))
+                    {
+                        styleBox.SelectedValue = value.Value;
+                        styleBox.SelectedText = value.Key;
+                    }
+                }
+            
                 // Helmet
                 readOffset(helm, 0x38D, helmName, helmText, null, null, br);
                 // Chest
@@ -264,8 +421,10 @@ namespace JJ_Editor
                     }
                     //int[] tag = { hots[i], hotsAmount[i] };
                     treeView1.Nodes[0].Nodes[i].Tag = tags[i];
+
                 }
                 tags.Clear();
+
                 var treeSlots = treeView1.Nodes[1];
                 for (var i = 0; i < slots.Length; i++)
                 {
@@ -282,6 +441,45 @@ namespace JJ_Editor
                 }
                 tags.Clear();
             }
+
+            readHex();
+        }
+
+        private void readHex()
+        {
+            int bytesPerLine = 16;
+            string dump = bytes.Select((c, i) => new { Char = c, Chunk = i / bytesPerLine })
+                .GroupBy(c => c.Chunk)
+                .Select(g => g.Select(c => String.Format("{0:X2} ", c.Char))
+                .Aggregate((s, i) => s + i))
+                .Select((s, i) => String.Format("{0:d6}: {1}", i * bytesPerLine, s))
+                .Aggregate("", (s, i) => s + i + Environment.NewLine);
+            hexBox.Text = dump;
+
+            // Alternating row colors
+            for (int i = 0; i < hexBox.Lines.Length; i++)
+            {
+                int first = hexBox.GetFirstCharIndexFromLine(i);
+                hexBox.Select(first, hexBox.Lines[i].Length);
+                hexBox.SelectionBackColor = (i % 2 == 0) ? System.Drawing.ColorTranslator.FromHtml("#efefef") : Color.White;
+            }
+
+            // Syntax highlighting
+            foreach (var a in keyWords)
+            {
+                pattern += a + "|";
+            }
+
+            Regex R = new Regex(pattern);
+            int index = hexBox.SelectionStart;
+
+            foreach (Match m in R.Matches(hexBox.Text))
+            {
+                hexBox.Select(m.Index, m.Value.Length);
+                hexBox.SelectionColor = Color.Green;
+                hexBox.SelectionStart = index;
+            }
+            hexBox.SelectionColor = Color.Black;
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -321,22 +519,17 @@ namespace JJ_Editor
             
         }
 
-        private void nameText_TextChanged(object sender, EventArgs e)
-        {
-         
-        }
-
         private void NaN_CheckedChanged(object sender, EventArgs e)
         {
-            string storedHealth = health;
             if (NaN.CheckState == CheckState.Checked)
             {
-                health = "FFFF";
-                healthVal = 65535;
+                healthBox.Value = 0xFFFF;
+                healthBox.Enabled = false;
             }
             else
             {
-                healthVal = 41024;
+                healthBox.Value = health;
+                healthBox.Enabled = true;
             }
         }
 
@@ -428,10 +621,94 @@ namespace JJ_Editor
                 bw.Write(playerName);
 
                 // Write health
-                bw.BaseStream.Position = 0x53A;
-                //byte[] healthHex = Encoding.ASCII.GetBytes(health);
-                IDToHex.idToHex(healthVal);
-                bw.Write(healthVal);
+                bw.BaseStream.Position = 0x538;
+                if (healthBox.Value == 0xFFFF)
+                {
+                    byte[] invincible = { 0x00, 0x00, 0xFF, 0xFF };
+                    bw.Write(invincible);
+                }
+                else
+                {
+                    health = (int)healthBox.Value;
+                    float hFloat = Convert.ToSingle(health);
+                    byte[] healthBytes = BitConverter.GetBytes(hFloat);
+                    bw.Write(healthBytes);
+                }
+
+                // Write characteristics
+                // Hair color
+                byte shiftValue = 4;
+                bw.BaseStream.Position = 0x74;
+                colorValue = Convert.ToByte((colorBox.SelectedItem as dynamic).Value);
+                bw.Write((byte)(colorValue << shiftValue));
+
+                // Gender 
+                // 0 2 4 6 8 male
+                // 1 3 5 6 7 female
+                bw.BaseStream.Position = 0x75;
+
+                switch(toneBox.SelectedValue)
+                {
+                    case 1: // Very Light
+                        if(genderBox.SelectedValue == male)
+                        {
+                            skinID = 0;
+                        }
+                        else
+                        {
+                            skinID = 1;
+                        }
+                        break;
+                    case 2: // Light
+                        if (genderBox.SelectedValue == male)
+                        {
+                            skinID = 2;
+                        }
+                        else
+                        {
+                            skinID = 3;
+                        }
+                        break;
+                    case 3: // Tan
+                        if (genderBox.SelectedValue == male)
+                        {
+                            skinID = 4;
+                        }
+                        else
+                        {
+                            skinID = 5;
+                        }
+                        break;
+                    case 4: // Dark
+                        if (genderBox.SelectedValue == male)
+                        {
+                            skinID = 6;
+                        }
+                        else
+                        {
+                            skinID = 7;
+                        }
+                        break;
+                    case 5: // very Dark
+                        if (genderBox.SelectedValue == male)
+                        {
+                            skinID = 8;
+                        }
+                        else
+                        {
+                            skinID = 9;
+                        }
+                        break;
+                }
+
+                //bw.Write((byte)(genderValue << shiftValue));
+
+                // Hair style
+                bw.BaseStream.Position = 0x75;
+                styleValue = Convert.ToByte((styleBox.SelectedItem as dynamic).Value);
+                bw.Write((byte)((skinID << shiftValue)) | (styleValue & 0x0F));
+
+                readHex();
 
                 // Write armor values
                 void writeOffset(int start, TextBox textbox = null, NumericUpDown itemAmount = null)
@@ -605,6 +882,7 @@ namespace JJ_Editor
                 numericUpDown1.Enabled = false;
                 checkBox1.Enabled = false;
                 itemList.Enabled = false;
+                itemList.Items.Clear();
                 saveButton.Enabled = false;
             }
         }
@@ -631,27 +909,33 @@ namespace JJ_Editor
             writeToPlayer();
         }
 
-        private void playerFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-
-            sfd.Filter = "Player files (*.dat)|*.dat";
-            sfd.RestoreDirectory = true;
-            sfd.Title = "Save player file";
-            sfd.InitialDirectory = @"C:\";
-            sfd.DefaultExt = "dat";
-
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                File.Copy(playerFile, sfd.FileName);
-            }
-        }
-
         private void Player_FormClosing(object sender, FormClosingEventArgs e)
         {
             main m = (main)this.MdiParent;
             var s = m.statusLabelPlayer;
             s.Text = Path.GetFileName(playerFile) + " closed";
         }
+
+        /**private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer2.Interval = 2000;
+            timer2.Tick += timer2_Tick;
+            timer2.Start();
+
+            // Clear all fields
+            nameText.Clear();
+            healthBox.Value = 0;
+            helmText.Clear();
+            chestText.Clear();
+            legsText.Clear();
+            feetText.Clear();
+            itemBox.Clear();
+            itemList.ClearSelected();
+            numericUpDown1.Value = 0;
+            treeView1.Nodes[0].Nodes.Clear();
+            treeView1.Nodes[1].Nodes.Clear();
+
+            readPlayerFile();
+        }**/
     }
 }

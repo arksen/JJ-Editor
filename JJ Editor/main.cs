@@ -38,7 +38,7 @@ namespace JJ_Editor
             string latestVersion = sr.ReadLine();
 
             // Download update when program is not up to date
-            if (currentVersion != latestVersion)
+            if (Version.Parse(currentVersion) < Version.Parse(latestVersion))
             {
                 if (MessageBox.Show("There is an update available " + latestVersion + "\nWould you like to download it?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                 {
@@ -283,9 +283,15 @@ namespace JJ_Editor
             }
         }
 
-        private void documentationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void githubToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Help.ShowHelp(this, "JJ_Editor.chm");
+            System.Diagnostics.Process.Start("https://github.com/arksen/JJ-Editor");
+        }
+
+        private void updateEnglishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string curDir = Directory.GetCurrentDirectory();
+            System.Diagnostics.Process.Start(curDir);
         }
     }
 }

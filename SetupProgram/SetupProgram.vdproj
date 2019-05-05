@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_061698574F454F0AAB10DA12DB70E994"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0AFE3DB379E1A46CFF78AEEAACDE89B2"
         "OwnerKey" = "8:_9542FB7AA69D47219956D4A9D8C90FFC"
         "MsmSig" = "8:_UNDEFINED"
@@ -27,12 +33,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_26A0018A102C4BADA725C569651EEBD3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9504C3D12CD94D93A826EB5F3D8EC81A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -40,6 +40,12 @@
         "Entry"
         {
         "MsmKey" = "8:_9542FB7AA69D47219956D4A9D8C90FFC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9574BB892ED04ED5B026218A964BCE34"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -64,13 +70,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0AFE3DB379E1A46CFF78AEEAACDE89B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_185ABF74805BFAD4E5CD94E13B68D934"
+        "OwnerKey" = "8:_A381CBC6366AD3E80B7AAA52D8507608"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,7 +82,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A381CBC6366AD3E80B7AAA52D8507608"
+        "OwnerKey" = "8:_185ABF74805BFAD4E5CD94E13B68D934"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0AFE3DB379E1A46CFF78AEEAACDE89B2"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -180,6 +186,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_061698574F454F0AAB10DA12DB70E994"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\Desktop\\JJ_Editor.chm"
+            "TargetName" = "8:JJ_Editor.chm"
+            "Tag" = "8:"
+            "Folder" = "8:_8EDD9D7B00AA4734814EF56D7A1A0EA0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0AFE3DB379E1A46CFF78AEEAACDE89B2"
             {
             "AssemblyRegister" = "3:1"
@@ -187,11 +213,6 @@
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_0AFE3DB379E1A46CFF78AEEAACDE89B2"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -218,11 +239,6 @@
             "AssemblyAsmDisplayName" = "8:Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c6752e45808247c2, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_185ABF74805BFAD4E5CD94E13B68D934"
-                    {
-                    "Name" = "8:Json.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Json.dll"
             "TargetName" = "8:"
@@ -242,10 +258,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_26A0018A102C4BADA725C569651EEBD3"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9504C3D12CD94D93A826EB5F3D8EC81A"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\Documents\\JJ\\english.json"
-            "TargetName" = "8:english.json"
+            "SourcePath" = "8:..\\..\\..\\..\\Downloads\\i_monster_pickaxe_2cp_icon.ico"
+            "TargetName" = "8:icon.ico"
             "Tag" = "8:"
             "Folder" = "8:_8EDD9D7B00AA4734814EF56D7A1A0EA0"
             "Condition" = "8:"
@@ -262,10 +278,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9504C3D12CD94D93A826EB5F3D8EC81A"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9574BB892ED04ED5B026218A964BCE34"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\Downloads\\i_monster_pickaxe_2cp_icon.ico"
-            "TargetName" = "8:icon.ico"
+            "SourcePath" = "8:C:\\Program Files (x86)\\Steam\\steamapps\\common\\Junk Jack\\data\\language\\english.json"
+            "TargetName" = "8:english.json"
             "Tag" = "8:"
             "Folder" = "8:_8EDD9D7B00AA4734814EF56D7A1A0EA0"
             "Condition" = "8:"
@@ -289,11 +305,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_A381CBC6366AD3E80B7AAA52D8507608"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -320,11 +331,6 @@
             "AssemblyAsmDisplayName" = "8:Be.Windows.Forms.HexBox, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C7BC2AA294FC1943408B483F2DD9262C"
-                    {
-                    "Name" = "8:Be.Windows.Forms.HexBox.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Be.Windows.Forms.HexBox.dll"
             "TargetName" = "8:"
