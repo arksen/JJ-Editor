@@ -204,6 +204,7 @@ namespace JJ_Editor
             // Add nodes
             treeView1.Nodes.Add("Hot Slots");
             treeView1.Nodes.Add("Inventory");
+            //treeView1.Nodes.Add("Potions");
             //treeView1.Nodes.Add("Armor");
             //treeView1.Nodes.Add("Potions");
 

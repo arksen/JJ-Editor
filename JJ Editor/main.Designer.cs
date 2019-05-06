@@ -33,18 +33,17 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.conversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoSave = new System.Windows.Forms.ToolStripMenuItem();
             this.orderOption = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutJJEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.updateEnglishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.updateEnglishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -80,18 +79,9 @@
             // 
             // toolsToolStripMenuItem
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.conversionToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // conversionToolStripMenuItem
-            // 
-            this.conversionToolStripMenuItem.Name = "conversionToolStripMenuItem";
-            this.conversionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.conversionToolStripMenuItem.Text = "Converter";
-            this.conversionToolStripMenuItem.Click += new System.EventHandler(this.conversionToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -134,16 +124,28 @@
             // aboutJJEditorToolStripMenuItem
             // 
             this.aboutJJEditorToolStripMenuItem.Name = "aboutJJEditorToolStripMenuItem";
-            this.aboutJJEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutJJEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutJJEditorToolStripMenuItem.Text = "About JJ Editor";
             this.aboutJJEditorToolStripMenuItem.Click += new System.EventHandler(this.aboutJJEditorToolStripMenuItem_Click);
             // 
             // githubToolStripMenuItem
             // 
             this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
-            this.githubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.githubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.githubToolStripMenuItem.Text = "GitHub";
             this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // updateEnglishToolStripMenuItem
+            // 
+            this.updateEnglishToolStripMenuItem.Name = "updateEnglishToolStripMenuItem";
+            this.updateEnglishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateEnglishToolStripMenuItem.Text = "Update english.json";
+            this.updateEnglishToolStripMenuItem.Click += new System.EventHandler(this.updateEnglishToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -160,18 +162,6 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Ready";
-            // 
-            // updateEnglishToolStripMenuItem
-            // 
-            this.updateEnglishToolStripMenuItem.Name = "updateEnglishToolStripMenuItem";
-            this.updateEnglishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.updateEnglishToolStripMenuItem.Text = "Update english.json";
-            this.updateEnglishToolStripMenuItem.Click += new System.EventHandler(this.updateEnglishToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // main
             // 
@@ -203,7 +193,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem conversionToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autoSave;

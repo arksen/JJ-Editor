@@ -12,16 +12,85 @@ using System.IO;
 using System.Net;
 using System.Diagnostics;
 using System.Reflection;
+using PluginFramework;
 
 namespace JJ_Editor
 {
     public partial class main : Form
     {
+        string curDir = Directory.GetCurrentDirectory();
         public ToolStripStatusLabel statusLabelPlayer;
+        Dictionary<string, IForm> plugins = new Dictionary<string, IForm>();
         public main()
         {
             InitializeComponent();
             statusLabelPlayer = statusLabel;
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var folder = Path.GetDirectoryName(assembly.Location);
+
+            LoadPlugins(folder);
+            createPluginMenu();
+
+            var separator = new ToolStripSeparator();
+            toolsToolStripMenuItem.DropDownItems.Add(separator);
+            var addTool = new ToolStripMenuItem("Add Tool", null, addToolToolStripMenuItem_Click);
+            toolsToolStripMenuItem.DropDownItems.Add(addTool);
+        }
+
+        void LoadPlugins(string folder)
+        {
+            plugins.Clear();
+            foreach(var dll in Directory.GetFiles(folder, "*.dll"))
+            {
+                try
+                {
+                    var asm = Assembly.LoadFrom(dll);
+                    foreach(var type in asm.GetTypes())
+                    {
+                        if(type.GetInterface("IForm") == typeof(IForm))
+                        {
+                            var plugin = Activator.CreateInstance(type) as IForm;
+                            plugins[plugin.name] = plugin;
+                        }
+                    }
+                }
+                catch (FileLoadException) { }
+            }
+        }
+
+        void createPluginMenu()
+        {
+            foreach(KeyValuePair<string, IForm> pair in plugins)
+            {
+                var item = new ToolStripMenuItem(pair.Key);
+                item.Click += new EventHandler(menuItem_Click);
+                toolsToolStripMenuItem.DropDownItems.Add(item);
+            }
+        }
+
+        void menuItem_Click(object sender, EventArgs e)
+        {
+            var menuItem = sender as ToolStripMenuItem;
+            var thePlugin = plugins[menuItem.Text];
+
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                Form form = new Form();
+
+                form = thePlugin.window(form);
+                form.MdiParent = this;
+                form.Show();
+            }
+            catch(Exception ex)
+            {
+                // In case the plugin fucks up
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -290,8 +359,39 @@ namespace JJ_Editor
 
         private void updateEnglishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string curDir = Directory.GetCurrentDirectory();
             System.Diagnostics.Process.Start(curDir);
+        }
+
+        private void addToolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string dllPath;
+            string dllName;
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = ".dll file only|*.dll";
+            ofd.InitialDirectory = curDir;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                dllPath = Path.GetDirectoryName(ofd.FileName);
+                dllName = Path.GetFileName(ofd.FileName);
+                File.Move(dllPath + "/" + dllName, curDir + "/" + dllName);
+
+                toolsToolStripMenuItem.DropDownItems.Clear();
+
+                var assembly = Assembly.GetExecutingAssembly();
+                var folder = Path.GetDirectoryName(assembly.Location);
+
+                LoadPlugins(folder);
+                createPluginMenu();
+
+                var separator = new ToolStripSeparator();
+                toolsToolStripMenuItem.DropDownItems.Add(separator);
+                var addTool = new ToolStripMenuItem("Add Tool", null, addToolToolStripMenuItem_Click);
+                toolsToolStripMenuItem.DropDownItems.Add(addTool);
+            }
+            else
+            {
+                // File not opened
+            }
         }
     }
 }
